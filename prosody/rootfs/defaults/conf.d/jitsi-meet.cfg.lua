@@ -42,6 +42,7 @@
 {{ $XMPP_DOMAIN := .Env.XMPP_DOMAIN | default "meet.jitsi" -}}
 {{ $XMPP_GUEST_DOMAIN := .Env.XMPP_GUEST_DOMAIN | default "guest.meet.jitsi" -}}
 {{ $XMPP_INTERNAL_MUC_DOMAIN := .Env.XMPP_INTERNAL_MUC_DOMAIN | default "internal-muc.meet.jitsi" -}}
+{{ $XMPP_JITSI_SETTINGS := .Env.XMPP_JITSI_SETTINGS | default "" -}}
 {{ $XMPP_MUC_DOMAIN := .Env.XMPP_MUC_DOMAIN | default "muc.meet.jitsi" -}}
 {{ $XMPP_MUC_DOMAIN_PREFIX := (split "." $XMPP_MUC_DOMAIN)._0 -}}
 {{ $XMPP_RECORDER_DOMAIN := .Env.XMPP_RECORDER_DOMAIN | default "recorder.meet.jitsi" -}}
@@ -126,6 +127,10 @@ smacks_max_unacked_stanzas = 5;
 smacks_hibernation_time = 60;
 smacks_max_hibernated_sessions = 1;
 smacks_max_old_sessions = 1;
+{{ end }}
+
+{{ if $XMPP_JITSI_SETTINGS -}}
+{{ $XMPP_JITSI_SETTINGS }}
 {{ end }}
 
 {{ if $ENABLE_JAAS_COMPONENTS }}

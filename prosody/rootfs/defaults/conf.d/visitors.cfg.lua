@@ -36,6 +36,7 @@
 {{ $XMPP_SERVER := .Env.XMPP_SERVER | default "xmpp.meet.jitsi" -}}
 {{ $XMPP_SERVER_S2S_PORT := .Env.XMPP_SERVER_S2S_PORT | default $S2S_PORT -}}
 {{ $XMPP_RECORDER_DOMAIN := .Env.XMPP_RECORDER_DOMAIN | default "recorder.meet.jitsi" -}}
+{{ $XMPP_VISITOR_SETTINGS := .Env.XMPP_VISITOR_SETTINGS | default "" -}}
 
 plugin_paths = { "/prosody-plugins/", "/prosody-plugins-custom", "/prosody-plugins-contrib" }
 
@@ -103,6 +104,10 @@ s2sout_override = {
 
 muc_limit_messages_count = 10;
 muc_limit_messages_check_token = {{ $LIMIT_MESSAGES_CHECK_TOKEN }};
+
+{{ if $XMPP_VISITOR_SETTINGS -}}
+{{ $XMPP_VISITOR_SETTINGS }}
+{{ end }}
 
 ----------- Virtual hosts -----------
 VirtualHost 'v{{ $VISITOR_INDEX }}.{{ $VISITORS_XMPP_DOMAIN }}'
